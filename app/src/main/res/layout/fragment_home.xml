@@ -28,7 +28,8 @@
             android:layout_marginBottom="116dp"
             android:text="@string/FirstTag"
             android:textStyle="italic"
-            android:typeface="normal" />
+            android:typeface="normal"
+            android:drawableLeft="@drawable/ic_library_add"/>
 
         <Button
             android:textAllCaps="false"
@@ -42,7 +43,8 @@
             android:layout_marginTop="51dp"
             android:text="@string/SecondTag"
             android:textStyle="italic"
-            android:typeface="normal" />
+            android:typeface="normal"
+            android:drawableLeft="@drawable/ic_menu_gallery"/>
 
     </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
