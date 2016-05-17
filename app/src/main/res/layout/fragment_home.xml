@@ -5,17 +5,28 @@
     tools:context="com.example.protereotitapp.HomeFragment">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical">
+        android:layout_width="fill_parent"
+        android:layout_height="658dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:background="@drawable/background">
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ΓΕΙΑ ΣΟΥ "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="ProtereotiApp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="120dp"
+            android:textStyle="bold|italic"
+            android:textSize="30dp"
+            android:layout_marginLeft="97dp"
+            android:layout_marginStart="97dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffff" />
 
         <Button
             android:textAllCaps="false"
@@ -23,13 +34,15 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="116dp"
             android:text="@string/FirstTag"
             android:textStyle="italic"
             android:typeface="normal"
-            android:drawableLeft="@drawable/ic_library_add"/>
+            android:drawableLeft="@drawable/ic_library_add"
+            android:textSize="22dp"
+            android:textColor="#5254c8"
+            android:layout_above="@+id/button2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
             android:textAllCaps="false"
@@ -37,14 +50,16 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button"
-            android:layout_alignStart="@+id/button"
-            android:layout_alignTop="@+id/button"
-            android:layout_marginTop="51dp"
             android:text="@string/SecondTag"
             android:textStyle="italic"
             android:typeface="normal"
-            android:drawableLeft="@drawable/ic_menu_gallery"/>
+            android:drawableLeft="@drawable/ic_menu_gallery"
+            android:textSize="22dp"
+            android:textColor="#5861da"
+            android:layout_marginBottom="110dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
