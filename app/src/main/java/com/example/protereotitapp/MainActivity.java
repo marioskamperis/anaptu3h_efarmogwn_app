@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,14 +26,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,41 +111,45 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
-        switch (menuItem.getItemId()) {
-            case R.id.nav_info:
-//                fragmentClass = FirstFragment.class;
-                break;
-            case R.id.nav_live:
-//                fragmentClass = SecondFragment.class;
-                break;
-            case R.id.nav_manage:
-//                fragmentClass = ThirdFragment.class;
-                break;
-            case R.id.nav_myTickets:
-//                fragmentClass = ThirdFragment.class;
-                break;
-            case R.id.nav_ticket:
-//                fragmentClass = ThirdFragment.class;
-                break;
-            case R.id.nav_view:
-//                fragmentClass = ThirdFragment.class;
-                break;
-            default:
-//                fragmentClass = FirstFragment.class;
-        }
-
-        try {
+//        // Create a new fragment and specify the fragment to show based on nav item clicked
+//        Fragment fragment = null;
+//        Class fragmentClass;
+//        switch (menuItem.getItemId()) {
+//            case R.id.nav_ticket:
+//                fragmentClass = BookFragment.class;
+//                break;
+//
+//            case R.id.nav_myTickets:
+//                //TODO this is just an example
+//                fragmentClass = HomeFragment.class;
+//                break;
+//
+//            case R.id.nav_live:
+////                fragmentClass = SecondFragment.class;
+//                break;
+//
+//            case R.id.nav_manage:
+////                fragmentClass = ThirdFragment.class;
+//                break;
+//
+//
+//            case R.id.nav_view:
+////                fragmentClass = ThirdFragment.class;
+//                break;
+//
+//            default:
+////                fragmentClass = FirstFragment.class;
+//        }
+//
+//        try {
 //            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+////         Insert the fragment by replacing any existing fragment
 //        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//        fragmentManager.beginTransaction().replace(R.id., fragment).commit();
 //
 //        // Highlight the selected item has been done by NavigationView
 //        menuItem.setChecked(true);
