@@ -20,8 +20,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="FirstTag">Αίτηση αριθμού προτεραιότητας</string>
-    <string name="SencondTag">Τα ειιτήρια μου</string>
+    <string name="SencondTag">Τα ειστήρια μου</string>
     <string name="ThirdTag">Ζωντανή ενημέρωση προτεραιότητας</string>
     <string name="FouthTag">Ρυθμίσεις</string>
-    <string name="FifthTag">ΠΛηροφορίες</string>
+    <string name="FifthTag">Πληροφορίες</string>
 </resources>
