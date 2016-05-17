@@ -206,8 +206,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
             checkLogin(email, password);
-
-            Toast.makeText(getApplicationContext(), "Something went totally wrong", Toast.LENGTH_LONG).show();
             showProgress(false);
         }
     }
@@ -219,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
-        StringRequest strReq = new StringRequest(Request.Method.POST , "marioskamperis.ddns.net/protereotitapp/mobile_login.php", new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST , AppConfig.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -251,7 +249,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                         //TODO redirect to main activity
-                        Toast.makeText(getApplicationContext(),"MADE IT YOU ARE LOGGED IN",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"User id"+uid+"Name :"+name+" with email :"+email+" created_at: "+created_at,Toast.LENGTH_LONG).show();
                         // Launch main activity
 //                        Intent intent = new Intent(LoginActivity.this,
 //                                MainActivity.class);
@@ -294,6 +292,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
         };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 
