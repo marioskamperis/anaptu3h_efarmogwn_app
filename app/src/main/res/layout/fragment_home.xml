@@ -10,56 +10,56 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:background="@drawable/background">
+        android:background="@color/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:src="@drawable/logo_small"
             android:text="ProtereotiApp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="120dp"
             android:textStyle="bold|italic"
-            android:textSize="30dp"
-            android:layout_marginLeft="97dp"
-            android:layout_marginStart="97dp"
-            android:layout_alignParentTop="true"
+            android:textColor="#ffffff"
+            android:layout_above="@+id/btnBookTicket"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#ffffff" />
+            android:layout_marginBottom="168dp" />
 
         <Button
             android:textAllCaps="false"
             style="@style/Base.TextAppearance.AppCompat"
-            android:id="@+id/button"
+            android:id="@+id/btnBookTicket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/FirstTag"
-            android:textStyle="italic"
+            android:textStyle="bold|italic"
             android:typeface="normal"
             android:drawableLeft="@drawable/ic_library_add"
-            android:textSize="22dp"
-            android:textColor="#5254c8"
-            android:layout_above="@+id/button2"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_above="@+id/btnMyTickets"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="#ffffff" />
 
         <Button
             android:textAllCaps="false"
             style="@style/Base.TextAppearance.AppCompat"
-            android:id="@+id/button2"
+            android:id="@+id/btnMyTickets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/SecondTag"
-            android:textStyle="italic"
+            android:textStyle="bold|italic"
             android:typeface="normal"
             android:drawableLeft="@drawable/ic_menu_gallery"
-            android:textSize="22dp"
-            android:textColor="#5861da"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="110dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="#ffffff" />
 
     </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
