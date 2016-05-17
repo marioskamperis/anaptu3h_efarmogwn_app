@@ -3,6 +3,7 @@ package com.example.protereotitapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -251,10 +252,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         //TODO redirect to main activity
                         Toast.makeText(getApplicationContext(),"User id"+uid+"Name :"+name+" with email :"+email+" created_at: "+created_at,Toast.LENGTH_LONG).show();
                         // Launch main activity
-//                        Intent intent = new Intent(LoginActivity.this,
-//                                MainActivity.class);
-//                        startActivity(intent);
-//                        finish();
+                        Intent intent = new Intent(LoginActivity.this,
+                                MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
