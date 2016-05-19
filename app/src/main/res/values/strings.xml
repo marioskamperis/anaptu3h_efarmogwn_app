@@ -27,4 +27,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="service_array">
+        <item>ΙΚΑ</item>
+        <item>ΔΟΥ</item>
+        <item>ΚΕΠ</item>
+        <item>ΕΛΤΑ</item>
+    </string-array>
+    <string name="title_activity_places">PlacesActivity</string>
+
+
 </resources>
