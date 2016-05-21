@@ -46,7 +46,8 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColorHint="@android:color/white"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -77,6 +78,15 @@
                 android:layout_marginTop="90dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold|italic" />
+            <!--<Button-->
+                <!--android:id="@+id/btlaces"-->
+                <!--android:textAllCaps="false"-->
+                <!--style="?android:textAppearanceSmall"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="90dp"-->
+                <!--android:text="PLACES"-->
+                <!--android:textStyle="bold|italic" />-->
 
 
         </LinearLayout>

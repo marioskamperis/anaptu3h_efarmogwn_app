@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +99,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
+        mEmailView.setHintTextColor(getResources().getColor(R.color.wallet_highlighted_text_holo_light));
+        mPasswordView.setHintTextColor(getResources().getColor(R.color.wallet_highlighted_text_holo_light));
+
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -106,17 +110,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
-
-        Button btPlaces = (Button) findViewById(R.id.btplaces);
-        btPlaces.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,
-                        PlacesActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//
+//        Button btPlaces = (Button) findViewById(R.id.btlaces);
+//        btPlaces.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(LoginActivity.this,
+//                        PlacesActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);

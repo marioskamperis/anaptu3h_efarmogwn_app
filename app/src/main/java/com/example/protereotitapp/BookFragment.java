@@ -1,15 +1,23 @@
 package com.example.protereotitapp;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,12 +36,15 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+public class BookFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, PlaceSelectionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "BookFragment";
+    private TextView mPlaceDetailsText;
+
+    private TextView mPlaceAttribution;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -41,7 +52,6 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
     private GoogleApiClient mGoogleApiClient;
 
-    private RecyclerView  recyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,34 +89,27 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                 .build();
 
     }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         View rootView = inflater.inflate(R.layout.fragment_book, container, false);
 
+        mPlaceDetailsText = (TextView) rootView.findViewById(R.id.place_details);
+        mPlaceAttribution = (TextView) rootView.findViewById(R.id.place_attribution);
 
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
 
-
-        try{
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-                    Log.i(TAG, "Place: " + place.getName());
-                }
-
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i(TAG, "An error occurred: " + status);
-                }
-            });
-        }catch(Exception e){
-            Log.d(TAG,"Exception :"+e);
+        try {
+            autocompleteFragment.setOnPlaceSelectedListener(this);
+        } catch (Exception e) {
+            Log.d(TAG, "Exception :" + e);
+            Toast.makeText(getActivity().getApplicationContext(), "Exception caught!", Toast.LENGTH_SHORT).show();
         }
+
         return rootView;
 //        return inflater.inflate(R.layout.fragment_book, container, false);
     }
@@ -115,6 +118,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         Log.d("BookFragment", "On connection failed Google APi client");
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onStart() {
         super.onStart();
@@ -167,4 +171,40 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onPlaceSelected(Place place) {
+        Log.i(TAG, "Place Selected: " + place.getName());
+
+        // Format the returned place's details and display them in the TextView.
+        mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(),
+                place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri()));
+
+        CharSequence attributions = place.getAttributions();
+        if (!TextUtils.isEmpty(attributions)) {
+            mPlaceAttribution.setText(Html.fromHtml(attributions.toString()));
+        } else {
+            mPlaceAttribution.setText("");
+        }
+    }
+
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+
+        Toast.makeText(getActivity().getApplicationContext(), "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Helper method to format information about a place nicely.
+     */
+    private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
+                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
+        Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber,
+                websiteUri));
+        return Html.fromHtml(res.getString(R.string.place_details, name, id, address, phoneNumber,
+                websiteUri));
+
+    }
+
 }
