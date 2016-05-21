@@ -35,6 +35,7 @@
         <item>ΕΛΤΑ</item>
     </string-array>
     <string name="title_activity_places">PlacesActivity</string>
+    <string name="myTicketsHeader">Τα εισιτήρια μου</string>
 
 
 </resources>
