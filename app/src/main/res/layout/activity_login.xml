@@ -71,20 +71,14 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
+                android:textAllCaps="false"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="90dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/btplaces"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="PLACES"
-                android:textStyle="bold" />
+                android:textStyle="bold|italic" />
+
 
         </LinearLayout>
     </ScrollView>
