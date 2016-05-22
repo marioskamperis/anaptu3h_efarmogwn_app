@@ -1,7 +1,11 @@
 package com.example.protereotitapp;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -16,16 +20,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -43,6 +63,9 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "BookFragment";
     private TextView mPlaceDetailsText;
+
+    private static Button btnbook_tciket;
+    private static View mProgressView;
 
     private TextView mPlaceAttribution;
 
@@ -99,8 +122,26 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
         mPlaceDetailsText = (TextView) rootView.findViewById(R.id.place_details);
         mPlaceAttribution = (TextView) rootView.findViewById(R.id.place_attribution);
+        btnbook_tciket =(Button) rootView.findViewById(R.id.btnbook_ticket);
+
+        //progress bar
+        mProgressView = rootView.findViewById(R.id.book_progress);
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+
+        //LatLong Bounds
+        LatLngBounds bounds = new LatLngBounds(new LatLng(37.58, 23.43), new LatLng(37.58, 23.43));
+
+        //Filter
+        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+//                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ESTABLISHMENT)
+                .setTypeFilter(1013)
+//                .setTypeFilter(AutocompleteFilter.)
+                .build();
+        autocompleteFragment.setBoundsBias(bounds);
+//        autocompleteFragment.setFilter(typeFilter);
 
 
         try {
@@ -130,6 +171,38 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         super.onStop();
         mGoogleApiClient.disconnect();
 
+    }
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+//            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+//                }
+//            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+//            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 
@@ -174,11 +247,12 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
     @Override
     public void onPlaceSelected(Place place) {
-        Log.i(TAG, "Place Selected: " + place.getName());
+
+        Log.i(TAG, "Place Selected: " + place);
 
         // Format the returned place's details and display them in the TextView.
         mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(),
-                place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri()));
+                place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri(), place.getPlaceTypes(), place.getLatLng()));
 
         CharSequence attributions = place.getAttributions();
         if (!TextUtils.isEmpty(attributions)) {
@@ -186,10 +260,15 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         } else {
             mPlaceAttribution.setText("");
         }
+
+        showProgress(true);
+
+        checkPlace(place);
+
     }
 
     public void onError(Status status) {
-        Log.e(TAG, "onError: Status = " + status.toString());
+//        Log.e(TAG, "onError: Status = " + status.toString());
 
         Toast.makeText(getActivity().getApplicationContext(), "Place selection failed: " + status.getStatusMessage(),
                 Toast.LENGTH_SHORT).show();
@@ -198,12 +277,113 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
     /**
      * Helper method to format information about a place nicely.
      */
+    @SuppressLint("StringFormatMatches")
     private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
-                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
-        Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber,
-                websiteUri));
+                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri, List<Integer> placeTypes, LatLng latLng) {
+//        Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber,websiteUri, placeTypes, latLng));
+
         return Html.fromHtml(res.getString(R.string.place_details, name, id, address, phoneNumber,
-                websiteUri));
+                websiteUri, placeTypes, latLng));
+
+    }
+
+    /**
+     * function to verify login details in mysql db
+     */
+    private void checkPlace(final Place place) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_TICKET, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "ticket response: " + response.toString());
+
+                showProgress(false);
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+                        //TODO make android session
+//                        session.setLogin(true);
+
+                        // Now store the user in SQLite
+//                        String uid = jObj.getString("uid");
+
+                        Log.d(TAG,"JOBJ "+jObj.toString());
+                        Log.d(TAG,"place_id "+jObj.get("place_id"));
+                        Log.d(TAG,"name "+jObj.get("name"));
+                        Log.d(TAG,"address "+jObj.get("address"));
+                        String place_id = String.valueOf(jObj.get("place_id"));
+                        String name = String.valueOf(jObj.get("name"));
+                        String address = String.valueOf(jObj.get("address"));
+
+                        btnbook_tciket.setVisibility(View.VISIBLE);
+                        btnbook_tciket.setText("Book Ticket Now");
+
+                        // Inserting row in users table
+//                        db.addUser(name, email, uid, created_at);
+                        String errorMsg = String.valueOf(jObj.get("error_msg"));
+                        Toast.makeText(getActivity().getApplicationContext(),errorMsg,Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getActivity().getApplicationContext(), "Place id" + place_id + "Name :" + name + " address: " + address, Toast.LENGTH_LONG).show();
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = String.valueOf(jObj.get("error_msg"));
+                        Toast.makeText(getActivity().getApplicationContext(),errorMsg,Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Response Error : " + errorMsg);
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Log.d(TAG, "Json error: " + e.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                try {
+                    params.put("place_id", place.getId());
+                    params.put("name", String.valueOf(place.getName()));
+                    params.put("address", String.valueOf(place.getAddress()));
+                    params.put("lat", String.valueOf(place.getLatLng().latitude));
+                    params.put("lon", String.valueOf(place.getLatLng().longitude));
+                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
+                    params.put("type", place.getPlaceTypes().toString());
+                    params.put("attributes", String.valueOf(place.getAttributions()));
+                    params.put("website", place.getWebsiteUri().toString());
+                    //TODO request actual user id
+                    params.put("user_id", "1234");
+                } catch (Exception e) {
+                    Log.d(TAG, "Exception at :" + e.getStackTrace());
+                }
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 
