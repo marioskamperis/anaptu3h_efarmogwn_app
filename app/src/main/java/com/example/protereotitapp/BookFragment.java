@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -64,7 +66,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
     private static final String TAG = "BookFragment";
     private TextView mPlaceDetailsText;
 
-    private static Button btnbook_tciket;
+    private static FloatingActionButton fab;
     private static View mProgressView;
 
     private TextView mPlaceAttribution;
@@ -122,7 +124,9 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
         mPlaceDetailsText = (TextView) rootView.findViewById(R.id.place_details);
         mPlaceAttribution = (TextView) rootView.findViewById(R.id.place_attribution);
-        btnbook_tciket =(Button) rootView.findViewById(R.id.btnbook_ticket);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fabBookTicket);
+
+
 
         //progress bar
         mProgressView = rootView.findViewById(R.id.book_progress);
@@ -294,11 +298,11 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_TICKET, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_CHECK_PLACE, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "ticket response: " + response.toString());
+                Log.d(TAG, "ticket response: " + response);
 
                 showProgress(false);
 
@@ -307,6 +311,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                     boolean error = jObj.getBoolean("error");
 
                     // Check for error node in json
+                    fab.setVisibility(View.INVISIBLE);
                     if (!error) {
                         // user successfully logged in
                         // Create login session
@@ -316,28 +321,24 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                         // Now store the user in SQLite
 //                        String uid = jObj.getString("uid");
 
-                        Log.d(TAG,"JOBJ "+jObj.toString());
-                        Log.d(TAG,"place_id "+jObj.get("place_id"));
-                        Log.d(TAG,"name "+jObj.get("name"));
-                        Log.d(TAG,"address "+jObj.get("address"));
-                        String place_id = String.valueOf(jObj.get("place_id"));
-                        String name = String.valueOf(jObj.get("name"));
-                        String address = String.valueOf(jObj.get("address"));
 
-                        btnbook_tciket.setVisibility(View.VISIBLE);
-                        btnbook_tciket.setText("Book Ticket Now");
+                        fab.setVisibility(View.VISIBLE);
+                        fab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+//                                bookTicket(place);
+                            }
+                        });
 
                         // Inserting row in users table
 //                        db.addUser(name, email, uid, created_at);
-                        String errorMsg = String.valueOf(jObj.get("error_msg"));
-                        Toast.makeText(getActivity().getApplicationContext(),errorMsg,Toast.LENGTH_LONG).show();
-
-                        Toast.makeText(getActivity().getApplicationContext(), "Place id" + place_id + "Name :" + name + " address: " + address, Toast.LENGTH_LONG).show();
+                        String errorMsg = String.valueOf(jObj.get("msg"));
+                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
 
                     } else {
                         // Error in login. Get the error message
-                        String errorMsg = String.valueOf(jObj.get("error_msg"));
-                        Toast.makeText(getActivity().getApplicationContext(),errorMsg,Toast.LENGTH_LONG).show();
+                        String errorMsg = String.valueOf(jObj.get("msg"));
+                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "Response Error : " + errorMsg);
                     }
                 } catch (JSONException e) {
@@ -386,5 +387,99 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
+//    private void bookTicket(final Place place) {
+//        // Tag used to cancel the request
+//        String tag_string_req = "req_login";
+//
+//        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_BOOK_TICKET, new Response.Listener<String>() {
+//
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d(TAG, "ticket response: " + response);
+//
+//                showProgress(false);
+//
+//                try {
+//                    JSONObject jObj = new JSONObject(response);
+//                    boolean error = jObj.getBoolean("error");
+//
+//                    // Check for error node in json
+//                    fab.setVisibility(View.INVISIBLE);
+//                    if (!error) {
+//                        // user successfully logged in
+//                        // Create login session
+//                        //TODO make android session
+////                        session.setLogin(true);
+//
+//                        // Now store the user in SQLite
+////                        String uid = jObj.getString("uid");
+//
+//
+//                        fab.setVisibility(View.VISIBLE);
+//                        fab.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                Snackbar.make(view, "Ticket Book redirect to My Ticket", Snackbar.LENGTH_LONG)
+//                                        .setAction("Action", null).show();
+//                            }
+//                        });
+//
+//                        // Inserting row in users table
+////                        db.addUser(name, email, uid, created_at);
+//                        String errorMsg = String.valueOf(jObj.get("msg"));
+//                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+//
+//                    } else {
+//                        // Error in login. Get the error message
+//                        String errorMsg = String.valueOf(jObj.get("msg"));
+//                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+//                        Log.d(TAG, "Response Error : " + errorMsg);
+//                    }
+//                } catch (JSONException e) {
+//                    // JSON error
+//                    e.printStackTrace();
+//                    Log.d(TAG, "Json error: " + e.getMessage());
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "Login Error: " + error.getMessage());
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        error.getMessage(), Toast.LENGTH_LONG).show();
+//                showProgress(false);
+//            }
+//        }) {
+//
+//            @Override
+//            protected Map<String, String> getParams() {
+//                // Posting parameters to login url
+//                Map<String, String> params = new HashMap<String, String>();
+//                try {
+//                    params.put("place_id", place.getId());
+//                    params.put("name", String.valueOf(place.getName()));
+//                    params.put("address", String.valueOf(place.getAddress()));
+//                    params.put("lat", String.valueOf(place.getLatLng().latitude));
+//                    params.put("lon", String.valueOf(place.getLatLng().longitude));
+//                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
+//                    params.put("type", place.getPlaceTypes().toString());
+//                    params.put("attributes", String.valueOf(place.getAttributions()));
+//                    params.put("website", place.getWebsiteUri().toString());
+//                    //TODO request actual user id
+//                    params.put("user_id", "1234");
+//                } catch (Exception e) {
+//                    Log.d(TAG, "Exception at :" + e.getStackTrace());
+//                }
+//                return params;
+//            }
+//
+//        };
+//
+//        // Adding request to request queue
+//        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+//
+//    }
 
 }

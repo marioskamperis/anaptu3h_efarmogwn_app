@@ -27,6 +27,7 @@
         android:paddingLeft="@dimen/horizontal_page_margin"
         android:paddingRight="@dimen/horizontal_page_margin"
         android:paddingTop="@dimen/vertical_page_margin">
+
         <ProgressBar
             android:id="@+id/book_progress"
             style="?android:attr/progressBarStyleLarge"
@@ -34,18 +35,19 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:visibility="gone" />
+
         <TextView
-            android:text="@string/intro_message"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:text="@string/intro_message"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_medium">
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium">
 
             <fragment
                 android:id="@+id/autocomplete_fragment"
@@ -56,32 +58,34 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:text="@string/selected_place"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/selected_place"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/place_details"
-            android:autoLink="all"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/place_attribution"
-            android:autoLink="all"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/margin_medium" />
-        <Button
-            android:id="@+id/btnbook_ticket"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:autoLink="all"
-            />
+            android:paddingTop="@dimen/margin_medium"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabBookTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </ScrollView>

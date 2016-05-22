@@ -233,11 +233,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
-        StringRequest strReq = new StringRequest(Request.Method.POST , AppConfig.URL_LOGIN, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Login Response: " + response.toString());
+                Log.d(TAG, "Logmarios@gmail.comin Response: " + response);
                 showProgress(false);
 
                 try {
@@ -262,9 +262,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         // Inserting row in users table
 //                        db.addUser(name, email, uid, created_at);
-                        
+
                         //TODO redirect to main activity
-                        Toast.makeText(getApplicationContext(),"User id"+uid+"Name :"+name+" with email :"+email+" created_at: "+created_at,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "User id" + uid + "Name :" + name + " with email :" + email + " created_at: " + created_at, Toast.LENGTH_LONG).show();
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);
@@ -280,6 +280,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     // JSON error
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    if (response != null) {
+                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
 
                 }
 
@@ -301,7 +304,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 params.put("password", password);
-                params.put("is_mobile", "true");
 
                 return params;
             }
