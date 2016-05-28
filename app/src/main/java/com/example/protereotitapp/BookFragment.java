@@ -155,6 +155,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
             Toast.makeText(getActivity().getApplicationContext(), "Exception caught!", Toast.LENGTH_SHORT).show();
         }
 
+
         return rootView;
 //        return inflater.inflate(R.layout.fragment_book, container, false);
     }
@@ -326,7 +327,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                         fab.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-//                                bookTicket(place);
+                                bookTicket(place);
                             }
                         });
 
@@ -387,99 +388,99 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
-//    private void bookTicket(final Place place) {
-//        // Tag used to cancel the request
-//        String tag_string_req = "req_login";
-//
-//        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_BOOK_TICKET, new Response.Listener<String>() {
-//
-//            @Override
-//            public void onResponse(String response) {
-//                Log.d(TAG, "ticket response: " + response);
-//
-//                showProgress(false);
-//
-//                try {
-//                    JSONObject jObj = new JSONObject(response);
-//                    boolean error = jObj.getBoolean("error");
-//
-//                    // Check for error node in json
-//                    fab.setVisibility(View.INVISIBLE);
-//                    if (!error) {
-//                        // user successfully logged in
-//                        // Create login session
-//                        //TODO make android session
-////                        session.setLogin(true);
-//
-//                        // Now store the user in SQLite
-////                        String uid = jObj.getString("uid");
-//
-//
-//                        fab.setVisibility(View.VISIBLE);
-//                        fab.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                Snackbar.make(view, "Ticket Book redirect to My Ticket", Snackbar.LENGTH_LONG)
-//                                        .setAction("Action", null).show();
-//                            }
-//                        });
-//
-//                        // Inserting row in users table
-////                        db.addUser(name, email, uid, created_at);
-//                        String errorMsg = String.valueOf(jObj.get("msg"));
-//                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-//
-//                    } else {
-//                        // Error in login. Get the error message
-//                        String errorMsg = String.valueOf(jObj.get("msg"));
-//                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-//                        Log.d(TAG, "Response Error : " + errorMsg);
-//                    }
-//                } catch (JSONException e) {
-//                    // JSON error
-//                    e.printStackTrace();
-//                    Log.d(TAG, "Json error: " + e.getMessage());
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, "Login Error: " + error.getMessage());
-//                Toast.makeText(getActivity().getApplicationContext(),
-//                        error.getMessage(), Toast.LENGTH_LONG).show();
-//                showProgress(false);
-//            }
-//        }) {
-//
-//            @Override
-//            protected Map<String, String> getParams() {
-//                // Posting parameters to login url
-//                Map<String, String> params = new HashMap<String, String>();
-//                try {
-//                    params.put("place_id", place.getId());
-//                    params.put("name", String.valueOf(place.getName()));
-//                    params.put("address", String.valueOf(place.getAddress()));
-//                    params.put("lat", String.valueOf(place.getLatLng().latitude));
-//                    params.put("lon", String.valueOf(place.getLatLng().longitude));
-//                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
-//                    params.put("type", place.getPlaceTypes().toString());
-//                    params.put("attributes", String.valueOf(place.getAttributions()));
-//                    params.put("website", place.getWebsiteUri().toString());
-//                    //TODO request actual user id
-//                    params.put("user_id", "1234");
-//                } catch (Exception e) {
-//                    Log.d(TAG, "Exception at :" + e.getStackTrace());
-//                }
-//                return params;
-//            }
-//
-//        };
-//
-//        // Adding request to request queue
-//        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-//
-//    }
+    private void bookTicket(final Place place) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_BOOK_TICKET, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "ticket response: " + response);
+
+                showProgress(false);
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    fab.setVisibility(View.INVISIBLE);
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+                        //TODO make android session
+//                        session.setLogin(true);
+
+                        // Now store the user in SQLite
+//                        String uid = jObj.getString("uid");
+
+
+                        fab.setVisibility(View.VISIBLE);
+                        fab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Snackbar.make(view, "Ticket Book redirect to My Ticket", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+                        });
+
+                        // Inserting row in users table
+//                        db.addUser(name, email, uid, created_at);
+                        String errorMsg = String.valueOf(jObj.get("msg"));
+                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = String.valueOf(jObj.get("msg"));
+                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Response Error : " + errorMsg);
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Log.d(TAG, "Json error: " + e.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                try {
+                    params.put("place_id", place.getId());
+                    params.put("name", String.valueOf(place.getName()));
+                    params.put("address", String.valueOf(place.getAddress()));
+                    params.put("lat", String.valueOf(place.getLatLng().latitude));
+                    params.put("lon", String.valueOf(place.getLatLng().longitude));
+                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
+                    params.put("type", place.getPlaceTypes().toString());
+                    params.put("attributes", String.valueOf(place.getAttributions()));
+                    params.put("website", place.getWebsiteUri().toString());
+                    //TODO request actual user id
+                    params.put("user_id", "1234");
+                } catch (Exception e) {
+                    Log.d(TAG, "Exception at :" + e.getStackTrace());
+                }
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+    }
 
 }
