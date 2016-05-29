@@ -82,6 +82,9 @@ public class CurrentTicketFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_current_ticket, container, false);
 
+        //Set Session
+        session = new SessionManager(getActivity().getApplicationContext());
+
         TextView tvNumber = (TextView) rootView.findViewById(R.id.tvNumber);
         TextView tvEstimatedTime = (TextView) rootView.findViewById(R.id.tvTime);
         TextView tvService=(TextView) rootView.findViewById(R.id.tvService);
@@ -90,14 +93,14 @@ public class CurrentTicketFragment extends Fragment {
         TextView tvName =(TextView) rootView.findViewById(R.id.tvName);
 
 
+        tvName.setText(session.getNAME());
         tvNumber.setText(number);
         tvEstimatedTime.setText(estimated_time);
         tvService.setText(service);
         tvAddress.setText(address);
         tvUniqueCode.setText(unique_code);
 
-        //Set Session
-        session
+
 
         return rootView;
     }

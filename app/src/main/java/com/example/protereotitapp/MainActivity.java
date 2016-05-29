@@ -1,5 +1,6 @@
 package com.example.protereotitapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.app.Fragment;
@@ -122,7 +123,8 @@ public class MainActivity extends AppCompatActivity
     public void selectDrawerItem(MenuItem menuItem) {
 //        // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass=null;
+        Class fragmentClass = null;
+        boolean loggout = false;
         switch (menuItem.getItemId()) {
             case R.id.nav_ticket:
                 fragmentClass = BookFragment.class;
@@ -133,8 +135,8 @@ public class MainActivity extends AppCompatActivity
                 fragmentClass = HomeFragment.class;
                 break;
 
-            case R.id.nav_live:
-//                fragmentClass = SecondFragment.class;
+            case R.id.nav_loggout:
+                loggout = true;
                 break;
 
             case R.id.nav_manage:
@@ -149,26 +151,36 @@ public class MainActivity extends AppCompatActivity
             default:
                 fragmentClass = HomeFragment.class;
         }
+        if (loggout) {
+            SessionManager session = new SessionManager(getApplicationContext());
+            session.setLogin(false);
+            Intent intent = new Intent(this,
+                    LoginActivity.class);
+            startActivity(intent);
+            finish();
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } else {
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 //         Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            // Set action bar title
+            setTitle(menuItem.getTitle());
 
 
-        // Close the navigation drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+            // Close the navigation drawer
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
     }
 
 

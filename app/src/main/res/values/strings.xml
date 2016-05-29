@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Protereotitapp</string>
+    <string name="app_name">ProtereotitApp</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -24,6 +24,7 @@
     <string name="ThirdTag">Ζωντανή ενημέρωση προτεραιότητας</string>
     <string name="FourthTag">Ρυθμίσεις</string>
     <string name="FifthTag">Πληροφορίες</string>
+    <string name="SixthTag">Αποσύνδεση</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -16,16 +16,20 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/ThirdTag" />
         <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="@string/FourthTag" />
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/FourthTag" />
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_menu_info"
             android:title="@string/FifthTag" />
 
-    </group>
+        <item
+            android:id="@+id/nav_loggout"
+            android:icon="@drawable/ic_menu_info"
+            android:title="@string/SixthTag" />
 
+    </group>
 
 
 </menu>
