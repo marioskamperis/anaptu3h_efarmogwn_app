@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private SessionManager session;
+
     private String TAG = "LoginActivity";
 
     @Override
@@ -124,6 +126,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void populateAutoComplete() {
@@ -249,7 +262,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // user successfully logged in
                         // Create login session
                         //TODO make android session
-//                        session.setLogin(true);
+                        session.setLogin(true);
+
 
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
@@ -261,11 +275,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 .getString("created_at");
 
                         // Inserting row in users table
-//                        db.addUser(name, email, uid, created_at);
+
+                        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+                        db.addUser(name, email, uid, created_at);
 
                         //TODO redirect to main activity
                         Toast.makeText(getApplicationContext(), "User id" + uid + "Name :" + name + " with email :" + email + " created_at: " + created_at, Toast.LENGTH_LONG).show();
                         // Launch main activity
+                        session.setCREATED_AT(created_at);
+                        session.setEMAIL(email);
+                        session.setNAME(name);
+                        session.setUNIQUE_ID(uid);
+
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivity.class);
                         startActivity(intent);

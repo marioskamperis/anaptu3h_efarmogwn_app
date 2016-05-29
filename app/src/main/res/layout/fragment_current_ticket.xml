@@ -4,17 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--Whole Layout-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Νικόλαος Μπελούσης" />
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Νικόλαος Μπελούσης"
+            android:textSize="20sp" />
 
         <LinearLayout
+            android:background="@color/common_action_bar_splitter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -29,13 +35,15 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:text="123"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="30sp" />
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="50sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,107 +53,112 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
                     android:text="Ωρα εκτίμωμενης Εξυπηρέτησης :"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:textStyle="bold"
                     android:text="12:53μμ"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/my_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="Υπηρεσία :"
                     android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:text="12:53μμ"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/my_border">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:text="Ωρα εκτίμωμενης Εξυπηρέτησης :"
+                    android:text="Διέυθυνση:"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:textColor="@android:color/holo_blue_dark"
                     android:text="12:53μμ"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/my_border">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:text="Ωρα εκτίμωμενης Εξυπηρέτησης :"
+                    android:text="Μοναδικός Κωδικός :"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvUniqueCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:textColor="@android:color/holo_blue_dark"
                     android:text="12:53μμ"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="5dp"
-                    android:text="Ωρα εκτίμωμενης Εξυπηρέτησης :"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="5dp"
-                    android:text="12:53μμ"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="5dp"
-                    android:text="Ωρα εκτίμωμενης Εξυπηρέτησης :"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="5dp"
-                    android:text="12:53μμ"
-                    android:textSize="15sp" />
-            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

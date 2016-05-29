@@ -12,9 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -25,6 +22,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -125,7 +126,6 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         mPlaceDetailsText = (TextView) rootView.findViewById(R.id.place_details);
         mPlaceAttribution = (TextView) rootView.findViewById(R.id.place_attribution);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fabBookTicket);
-
 
 
         //progress bar
@@ -388,6 +388,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
+
     private void bookTicket(final Place place) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
@@ -416,7 +417,6 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 //                        String uid = jObj.getString("uid");
 
 
-
                         // Inserting row in users table
 //                        db.addUser(name, email, uid, created_at);
                         String estimated_time = String.valueOf(jObj.get("estimated_time"));
@@ -425,8 +425,24 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                         String unique_code = String.valueOf(jObj.get("unique_code"));
                         String expiration_date = String.valueOf(jObj.get("expiration_date"));
 
-                        Toast.makeText(getActivity().getApplicationContext(), "Estimated time: "+estimated_time+ " Number:"+number, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Estimated time: " + estimated_time + " Number:" + number, Toast.LENGTH_LONG).show();
 
+
+//                        Class fragmentClass = CurrentTicketFragment.class;
+//                        Fragment fragment = null;
+//                        try {
+//                            fragment = (Fragment) fragmentClass.newInstance();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        FragmentManager fragmentManager = getFragmentManager();
+//                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                        Fragment current_ticket = new CurrentTicketFragment().newInstance(number,estimated_time,String.valueOf(place.getName()),String.valueOf(place.getAddress()),unique_code);
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.flContent,current_ticket);
+                        ft.addToBackStack(null);
+                        ft.commit();
 
 
                     } else {
