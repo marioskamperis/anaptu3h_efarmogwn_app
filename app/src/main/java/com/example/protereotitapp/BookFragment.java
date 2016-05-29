@@ -365,7 +365,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 try {
-                    params.put("place_id", place.getId());
+                    params.put("google_place_id", place.getId());
                     params.put("name", String.valueOf(place.getName()));
                     params.put("address", String.valueOf(place.getAddress()));
                     params.put("lat", String.valueOf(place.getLatLng().latitude));
@@ -396,7 +396,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "ticket response: " + response);
+                Log.d(TAG, "book ticket response: " + response);
 
                 showProgress(false);
 
@@ -416,19 +416,18 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 //                        String uid = jObj.getString("uid");
 
 
-                        fab.setVisibility(View.VISIBLE);
-                        fab.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Snackbar.make(view, "Ticket Book redirect to My Ticket", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-                            }
-                        });
 
                         // Inserting row in users table
 //                        db.addUser(name, email, uid, created_at);
-                        String errorMsg = String.valueOf(jObj.get("msg"));
-                        Toast.makeText(getActivity().getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                        String estimated_time = String.valueOf(jObj.get("estimated_time"));
+                        String average_time = String.valueOf(jObj.get("average_time"));
+                        String number = String.valueOf(jObj.get("number"));
+                        String unique_code = String.valueOf(jObj.get("unique_code"));
+                        String expiration_date = String.valueOf(jObj.get("expiration_date"));
+
+                        Toast.makeText(getActivity().getApplicationContext(), "Estimated time: "+estimated_time+ " Number:"+number, Toast.LENGTH_LONG).show();
+
+
 
                     } else {
                         // Error in login. Get the error message
@@ -459,16 +458,16 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 try {
-                    params.put("place_id", place.getId());
-                    params.put("name", String.valueOf(place.getName()));
-                    params.put("address", String.valueOf(place.getAddress()));
-                    params.put("lat", String.valueOf(place.getLatLng().latitude));
-                    params.put("lon", String.valueOf(place.getLatLng().longitude));
-                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
-                    params.put("type", place.getPlaceTypes().toString());
-                    params.put("attributes", String.valueOf(place.getAttributions()));
-                    params.put("website", place.getWebsiteUri().toString());
-                    //TODO request actual user id
+                    params.put("google_place_id", place.getId());
+//                    params.put("name", String.valueOf(place.getName()));
+//                    params.put("address", String.valueOf(place.getAddress()));
+//                    params.put("lat", String.valueOf(place.getLatLng().latitude));
+//                    params.put("lon", String.valueOf(place.getLatLng().longitude));
+//                    params.put("telephone", String.valueOf(place.getPhoneNumber()));
+//                    params.put("type", place.getPlaceTypes().toString());
+//                    params.put("attributes", String.valueOf(place.getAttributions()));
+//                    params.put("website", place.getWebsiteUri().toString());
+//                    //TODO request actual user id
                     params.put("user_id", "1234");
                 } catch (Exception e) {
                     Log.d(TAG, "Exception at :" + e.getStackTrace());
