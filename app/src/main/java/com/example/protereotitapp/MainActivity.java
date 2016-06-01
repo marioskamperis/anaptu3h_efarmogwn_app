@@ -126,13 +126,17 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
         boolean loggout = false;
         switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                fragmentClass = HomeFragment.class;
+                break;
+
             case R.id.nav_ticket:
                 fragmentClass = BookFragment.class;
                 break;
 
-            case R.id.nav_myTickets:
+            case R.id.nav_myTicket:
                 //TODO this is just an example
-                fragmentClass = HomeFragment.class;
+                fragmentClass = CurrentTicketFragment.class;
                 break;
 
             case R.id.nav_loggout:
@@ -140,12 +144,12 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_manage:
-//                fragmentClass = ThirdFragment.class;
+                fragmentClass = HomeFragment.class;
                 break;
 
 
             case R.id.nav_view:
-//                fragmentClass = ThirdFragment.class;
+                fragmentClass = HomeFragment.class;
                 break;
 
             default:
@@ -167,8 +171,11 @@ public class MainActivity extends AppCompatActivity
             }
 
 //         Insert the fragment by replacing any existing fragment
+
+
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
 
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);

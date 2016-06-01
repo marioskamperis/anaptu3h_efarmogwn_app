@@ -4,11 +4,15 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_info"
+            android:title="@string/ZeroTag" />
+        <item
             android:id="@+id/nav_ticket"
             android:icon="@drawable/ic_library_add"
             android:title="@string/FirstTag" />
         <item
-            android:id="@+id/nav_myTickets"
+            android:id="@+id/nav_myTicket"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/SecondTag" />
         <item

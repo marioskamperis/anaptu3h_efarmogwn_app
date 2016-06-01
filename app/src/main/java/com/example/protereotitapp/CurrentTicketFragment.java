@@ -12,6 +12,11 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,11 +36,11 @@ public class CurrentTicketFragment extends Fragment {
     private static final String UNIQUE_CODE= "unique_code";
 
     // TODO: Rename and change types of parameters
-    private String number;
-    private String estimated_time;
-    private String service;
-    private String address;
-    private String unique_code;
+    private String number="";
+    private String estimated_time="";
+    private String service="";
+    private String address="";
+    private String unique_code="";
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,13 +98,23 @@ public class CurrentTicketFragment extends Fragment {
         TextView tvName =(TextView) rootView.findViewById(R.id.tvName);
 
 
-        tvName.setText(session.getNAME());
-        tvNumber.setText(number);
-        tvEstimatedTime.setText(estimated_time);
-        tvService.setText(service);
-        tvAddress.setText(address);
-        tvUniqueCode.setText(unique_code);
+        String[] array = session.getTicket();
 
+
+        tvName.setText(session.getNAME());
+
+
+        if(estimated_time==""){
+            estimated_time=array[0];
+        }
+
+        estimated_time= estimated_time.substring(estimated_time.length()-5);
+
+        tvEstimatedTime.setText(String.valueOf(estimated_time));
+        tvNumber.setText((number=="")?array[1]:number);
+        tvUniqueCode.setText((unique_code=="")?array[2]:unique_code);
+        tvService.setText((service=="")?array[3]:service);
+        tvAddress.setText((address=="")?array[4]:address);
 
 
         return rootView;

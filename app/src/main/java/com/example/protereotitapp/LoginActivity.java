@@ -276,11 +276,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         // Inserting row in users table
 
-                        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
-                        db.addUser(name, email, uid, created_at);
+//                        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+//                        db.addUser(name, email, uid, created_at);
 
                         //TODO redirect to main activity
-                        Toast.makeText(getApplicationContext(), "User id" + uid + "Name :" + name + " with email :" + email + " created_at: " + created_at, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "User id" + uid + "Name :" + name + " with email :" + email + " created_at: " + created_at, Toast.LENGTH_LONG).show();
                         // Launch main activity
                         session.setCREATED_AT(created_at);
                         session.setEMAIL(email);

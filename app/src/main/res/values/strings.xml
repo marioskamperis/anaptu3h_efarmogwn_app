@@ -19,8 +19,9 @@
     <string name="navigation_drawer_close">Κλείσιμο του μενύ</string>
 
     <string name="action_settings">Ρυθμίσεις</string>
+    <string name="ZeroTag">Αρχική</string>
     <string name="FirstTag">Αίτηση αριθμού προτεραιότητας</string>
-    <string name="SecondTag">Τα εισιτήριά μου</string>
+    <string name="SecondTag">Τo εισιτήριό μου</string>
     <string name="ThirdTag">Ζωντανή ενημέρωση προτεραιότητας</string>
     <string name="FourthTag">Ρυθμίσεις</string>
     <string name="FifthTag">Πληροφορίες</string>

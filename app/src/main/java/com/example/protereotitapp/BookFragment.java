@@ -438,9 +438,15 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 //
 //                        FragmentManager fragmentManager = getFragmentManager();
 //                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-                        Fragment current_ticket = new CurrentTicketFragment().newInstance(number,estimated_time,String.valueOf(place.getName()),String.valueOf(place.getAddress()),unique_code);
+
+                        SessionManager session = new SessionManager(getActivity().getApplicationContext());
+
+                        session.setTicket(estimated_time,average_time,number,unique_code,expiration_date,String.valueOf(place.getName()),String.valueOf(place.getAddress()));
+
+
+                        Fragment current_ticket = new CurrentTicketFragment().newInstance(number, estimated_time, String.valueOf(place.getName()), String.valueOf(place.getAddress()), unique_code);
                         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.flContent,current_ticket);
+                        ft.replace(R.id.flContent, current_ticket);
                         ft.addToBackStack(null);
                         ft.commit();
 

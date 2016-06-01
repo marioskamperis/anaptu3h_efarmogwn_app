@@ -28,6 +28,16 @@ public class SessionManager {
     private static final String UNIQUE_ID = "unique_id";
     private static final String ID = "id";
     private static final String CREATED_AT = "created_at";
+
+    private static final String estimated_time = "estimated_time";
+    private static final String average_time = "average_time";
+    private static final String number = "number";
+    private static final String unique_code = "unique_code";
+    private static final String expiration_date = "expiration_date";
+    private static final String service = "service";
+    private static final String address= "address";
+
+
 //    private static final String GCM_REGISTRATION_ID="GoogleCloudMessagingResgistrationId";
 
     public SessionManager(Context context) {
@@ -100,4 +110,27 @@ public class SessionManager {
         return pref.getString(CREATED_AT, "1970-00-00 00:00");
     }
 
+    public void setTicket(String estimated_time, String average_time, String number, String unique_code, String expiration_date,String service,String address) {
+        editor.putString(this.estimated_time, estimated_time);
+//        editor.putString(this.average_time, average_time);
+        editor.putString(this.number, number);
+        editor.putString(this.unique_code, unique_code);
+//        editor.putString(this.expiration_date, expiration_date);
+        editor.putString(this.service, service);
+        editor.putString(this.address, address);
+        // commit changes
+        editor.commit();
+    }
+
+    public String[] getTicket() {
+        String[] array = new String[5];
+        array[0] = pref.getString(this.estimated_time, "estimated_time");
+//        array[1] = pref.getString(this.average_time, "average_time");
+        array[1] = pref.getString(this.number, "number");
+        array[2] = pref.getString(this.unique_code, "unique_code");
+//        array[4] = pref.getString(this.expiration_date, "expiration_date");
+        array[3] = pref.getString(this.service, "service");
+        array[4] = pref.getString(this.address, "address");
+        return array;
+    }
 }
