@@ -4,16 +4,16 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Συνθηματική Φράση (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="action_sign_in">Είσοδος</string>
+    <string name="action_sign_in_short">Είσοδος</string>
+    <string name="error_invalid_email">Λάθος e-mail.</string>
+    <string name="error_invalid_password">Το password είναι πολύ μικρό.</string>
+    <string name="error_incorrect_password">Λάθος password</string>
+    <string name="error_field_required">Υποχρεωτικό πεδίο</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">ProtereotitAppy</string>
 
     <string name="navigation_drawer_open">Άνοιγμα του μενού</string>
     <string name="navigation_drawer_close">Κλείσιμο του μενύ</string>
@@ -28,7 +28,7 @@
     <string name="SixthTag">Αποσύνδεση</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">ProtereotitApp</string>
 
     <string-array name="service_array">
         <item>ΙΚΑ</item>
@@ -36,10 +36,10 @@
         <item>ΚΕΠ</item>
         <item>ΕΛΤΑ</item>
     </string-array>
-    <string name="title_activity_places">PlacesActivity</string>
+    <string name="title_activity_places">Υπηρεσίες</string>
     <string name="myTicketsHeader">Τα εισιτήρια μου</string>
 
-    <string name="selected_place">Last Selected Place:</string>
+    <string name="selected_place">Επιλεγμένη Υπηρεσία:</string>
     <string name="place_details">
     <![CDATA[
         <b>%1$s</b>
@@ -58,9 +58,7 @@
         <![CDATA[
 
 
-            This sample uses the PlaceAutocompleteFragment from the Places API for Android within a
-            CardView to provide an autocomplete powered search experience. Once a place is selected,
-            its details are displayed.
+            Παρακαλώ πατήστε το search για να αναζητήσετε υπηρεσία.
 
 
         ]]>

@@ -35,7 +35,8 @@ public class SessionManager {
     private static final String unique_code = "unique_code";
     private static final String expiration_date = "expiration_date";
     private static final String service = "service";
-    private static final String address= "address";
+    private static final String address = "address";
+    private static final String place_id = "place_id";
 
 
 //    private static final String GCM_REGISTRATION_ID="GoogleCloudMessagingResgistrationId";
@@ -78,11 +79,11 @@ public class SessionManager {
     }
 
 
-//    public void setID(String id) {
-//        editor.putString(ID, id);
-//        // commit changes
-//        editor.commit();
-//    }
+    public void setID(String id) {
+        editor.putString(ID, id);
+        // commit changes
+        editor.commit();
+    }
 
     public void setCREATED_AT(String created_at) {
         editor.putString(CREATED_AT, created_at);
@@ -102,15 +103,15 @@ public class SessionManager {
         return pref.getString(UNIQUE_ID, "00000.0000");
     }
 
-//    public String getID() {
-//        return pref.getString(ID, "0");
-//    }
+    public String getID() {
+        return pref.getString(ID, "0");
+    }
 
     public String getCREATED_AT() {
         return pref.getString(CREATED_AT, "1970-00-00 00:00");
     }
 
-    public void setTicket(String estimated_time, String average_time, String number, String unique_code, String expiration_date,String service,String address) {
+    public void setTicket(String estimated_time, String average_time, String number, String unique_code, String expiration_date, String service, String address) {
         editor.putString(this.estimated_time, estimated_time);
 //        editor.putString(this.average_time, average_time);
         editor.putString(this.number, number);
@@ -133,4 +134,16 @@ public class SessionManager {
         array[4] = pref.getString(this.address, "address");
         return array;
     }
+
+
+    public void setPlaceId(String place_id) {
+        editor.putString(this.place_id, place_id);
+        editor.commit();
+    }
+
+
+    public String getPlaceId() {
+        return pref.getString(this.place_id, "place_id");
+    }
+
 }

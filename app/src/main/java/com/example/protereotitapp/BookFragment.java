@@ -81,6 +81,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
     private OnFragmentInteractionListener mListener;
 
+    private static SessionManager session ;
     public BookFragment() {
         // Required empty public constructor
     }
@@ -133,6 +134,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
+        session = new SessionManager(getActivity().getApplicationContext());
 
         //LatLong Bounds
         LatLngBounds bounds = new LatLngBounds(new LatLng(37.58, 23.43), new LatLng(37.58, 23.43));
@@ -442,7 +444,7 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
                         SessionManager session = new SessionManager(getActivity().getApplicationContext());
 
                         session.setTicket(estimated_time,average_time,number,unique_code,expiration_date,String.valueOf(place.getName()),String.valueOf(place.getAddress()));
-
+                        session.setPlaceId(place.getId());
 
                         Fragment current_ticket = new CurrentTicketFragment().newInstance(number, estimated_time, String.valueOf(place.getName()), String.valueOf(place.getAddress()), unique_code);
                         final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -490,7 +492,8 @@ public class BookFragment extends Fragment implements GoogleApiClient.OnConnecti
 //                    params.put("attributes", String.valueOf(place.getAttributions()));
 //                    params.put("website", place.getWebsiteUri().toString());
 //                    //TODO request actual user id
-                    params.put("user_id", "1234");
+                    params.put("user_id", session.getID());
+
                 } catch (Exception e) {
                     Log.d(TAG, "Exception at :" + e.getStackTrace());
                 }

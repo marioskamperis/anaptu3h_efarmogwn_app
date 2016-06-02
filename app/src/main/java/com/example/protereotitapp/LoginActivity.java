@@ -269,6 +269,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
+                        String id = user.getString("id");
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String created_at = user
@@ -285,6 +286,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         session.setCREATED_AT(created_at);
                         session.setEMAIL(email);
                         session.setNAME(name);
+                        session.setID(id);
+                        Toast.makeText(getApplicationContext(),session.getID(),Toast.LENGTH_LONG).show();
                         session.setUNIQUE_ID(uid);
 
                         Intent intent = new Intent(LoginActivity.this,

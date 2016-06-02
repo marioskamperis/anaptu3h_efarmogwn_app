@@ -143,14 +143,14 @@ public class MainActivity extends AppCompatActivity
                 loggout = true;
                 break;
 
+            case R.id.nav_live:
+                fragmentClass = LiveTicketFragment.class;
+                break;
+
             case R.id.nav_manage:
                 fragmentClass = HomeFragment.class;
                 break;
 
-
-            case R.id.nav_view:
-                fragmentClass = HomeFragment.class;
-                break;
 
             default:
                 fragmentClass = HomeFragment.class;
